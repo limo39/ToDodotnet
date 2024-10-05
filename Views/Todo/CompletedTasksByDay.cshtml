@@ -1,0 +1,15 @@
+﻿@model IEnumerable<IGrouping<DateTime, TodoApp.Models.TodoItem>>
+
+<h1>Tasks Completed by Day</h1>
+
+@foreach (var group in Model)
+{
+    <h2>@group.Key.ToString("D")</h2> <!-- Display the date -->
+
+    <ul>
+        @foreach (var item in group)
+        {
+            <li>@item.Title</li>
+        }
+    </ul>
+}

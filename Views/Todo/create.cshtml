@@ -1,0 +1,9 @@
+﻿@model TodoApp.Models.TodoItem
+
+<h1>Create a New Task</h1>
+
+<form asp-action="Create" method="post">
+    <label for="Title">Title</label>
+    <input type="text" id="Title" name="Title" />
+    <input type="submit" value="Create Task" />
+</form>

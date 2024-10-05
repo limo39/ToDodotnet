@@ -1,0 +1,47 @@
+﻿@model IEnumerable<TodoApp.Models.TodoItem>
+
+<div class="container">
+    <h1>To-Do List</h1>
+
+    <a asp-action="Create" class="btn plus-button">+</a>
+
+    <form asp-action="Index" method="get">
+        <input type="text" name="searchQuery" placeholder="Search tasks" />
+        <button type="submit">Search</button>
+    </form>
+
+
+    <h2>Incomplete Tasks</h2>
+    @foreach (var item in Model.Where(x => !x.IsCompleted))
+    {
+        <div class="task-box">
+            <li>
+                @item.Title - <small>Created on: @item.DateCreated?.ToString("g")</small>
+                <form asp-action="MarkComplete" method="post">
+                    <input type="checkbox" name="isCompleted" value="true" onchange="this.form.submit()" />
+                    <input type="hidden" name="id" value="@item.Id" />
+                </form>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <form asp-action="Delete" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        </div>
+    }
+
+    <h2>Completed Tasks</h2>
+    @foreach (var item in Model.Where(x => x.IsCompleted))
+    {
+        <div class="task-box">
+            <li>
+                @item.Title - <small>Created on: @item.DateCreated?.ToString("g")</small>
+                <input type="checkbox" checked disabled="disabled" />
+                <form asp-action="Delete" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        </div>
+    }
+</div>
